@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class ViewModel;
 @interface CYViewCell : UITableViewCell
-
+@property (strong,nonatomic) ViewModel *vm;
 @end

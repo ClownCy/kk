@@ -7,92 +7,71 @@
 //
 
 #import "CYTableViewController.h"
-
+#import "CYViewCell.h"
+#import "ViewModel.h"
+static NSString *ID = @"cell";
 @interface CYTableViewController ()
-
+@property (strong,nonatomic) NSMutableArray *array;
+@property (strong,nonatomic) NSMutableArray *dadaArr;
 @end
 
 @implementation CYTableViewController
-
+-(NSMutableArray *)dadaArr{
+    if (_dadaArr == nil) {
+        _dadaArr = [NSMutableArray array];
+    }
+    return _dadaArr;
+}
+-(NSMutableArray *)array{
+    if (_array == nil) {
+        _array = [NSMutableArray array];
+    }
+    return _array;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor redColor];
+    NSDictionary *dict1 = @{ @"name" : @"ZHANGSAN" , @"image" : @"未标题-1_23"
+        
+    };
+    NSDictionary *dict2 =@{ @"name" : @"LISI" , @"image" : @"团购切1_09"
+                            
+                            };
+    [self.array  addObject:dict1];
+    [self.array  addObject:dict2];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    for (NSDictionary *dict in self.array) {
+        ViewModel *vm = [ViewModel modelWithDict:dict];
+        [self.dadaArr addObject:vm];
+    }
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self.tableView registerNib:[UINib nibWithNibName:@"CYViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:ID];
+
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
-#pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
-}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return self.dadaArr.count;
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CYViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
+   
+    ViewModel *vm = self.dadaArr[indexPath.row];
+    cell.vm = vm;
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 100;
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

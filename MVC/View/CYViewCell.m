@@ -7,18 +7,22 @@
 //
 
 #import "CYViewCell.h"
+#import "ViewModel.h"
+@interface CYViewCell()
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
+@property (weak, nonatomic) IBOutlet UIImageView *imageV;
+@end
 @implementation CYViewCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
+
+
+
+-(void)setVm:(ViewModel *)vm{
+    _vm = vm;
+    self.nameLabel.text = vm.name;
+    self.imageV.image = [UIImage imageNamed:vm.image];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
 
 @end

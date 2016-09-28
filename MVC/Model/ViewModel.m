@@ -9,5 +9,9 @@
 #import "ViewModel.h"
 
 @implementation ViewModel
-
++(instancetype)modelWithDict:(NSDictionary *)dict{
+    ViewModel *vm = [[self alloc]init];
+    [vm setValuesForKeysWithDictionary:dict];
+    return vm;
+}
 @end

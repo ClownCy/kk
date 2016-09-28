@@ -9,5 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface ViewModel : NSObject
-
+@property (strong,nonatomic) NSString *name;
+@property (strong,nonatomic) NSString *image;
++(instancetype)modelWithDict:(NSDictionary*)dict;
 @end
